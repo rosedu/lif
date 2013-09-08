@@ -1,0 +1,3 @@
+[submodule "sheetsee.js"]
+	path = sheetsee.js
+	url = https://github.com/jlord/sheetsee.js.git
