@@ -17,6 +17,17 @@
 
 <body>
 <h1> Linux Install Fest </h1>
+<h1 id="participantNo"></h1>
+<div style="float: left;">
+<h2> Distributions <h2>
+<div id="distributions"></div>
+</div>
+<div style="float: left;">
+<h2> Helpers <h2>
+<div id="helpers"></div>
+</div>
+<div style="clear: both"></div>
+<h2> Participants <h2>
 <input id="participantsFilter" type="text" placeholder="Search.."></input>
 <span class="clear button">Clear</span>
 <span class="noMatches">no matches</span>
@@ -43,8 +54,23 @@
   	
   function showInfo(data) {
 		gData = data;
+    $("#participantNo").html(gData.length + " participants");
     Sheetsee.makeTable(gData, "#participants");
-    Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants")
+    Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
+
+    var distributions = Sheetsee.getOccurance(data, "distribution");
+    var colors = ["#f0f", "#0f9", "#9f3", "#0ff"]
+    var pieData = Sheetsee.makeColorArrayOfObject(distributions, colors, "distribution");
+    var pieOptions = {labels: "distribution", units: "units", m: [120, 120, 120, 120],
+                      w: 600, h: 400, div: "#distributions", hiColor: "#14ECC8"};
+    Sheetsee.d3PieChart(pieData, pieOptions);
+
+    var helpers = Sheetsee.getOccurance(data, "helper");
+    var barData = Sheetsee.makeColorArrayOfObject(helpers, colors, "helper");
+    var barOptions = {labels: "helper", units: "units", m: [0, 0, 0, 200],
+                      w: 600, h: 800, div: "#helpers", hiColor: "#14ECC8"};
+    Sheetsee.d3BarChart(barData, barOptions);
+
 
 		// everything else here
   }
