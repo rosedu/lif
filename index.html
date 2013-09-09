@@ -7,6 +7,7 @@
 		<script type="text/javascript" src='sheetsee.js/js/d3.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/tabletop.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/sheetsee.js'></script>
+		<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js'></script>
 		
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.css' rel='stylesheet' />
@@ -16,13 +17,16 @@
 	</head>
 
 <body>
-<h1> Linux Install Fest </h1>
+<div id=lifHeader></div>
+<script id="lifTemplate" type="text/x-handlebars-template">
+<h1> Linux Install Fest {{ year }} </h1>
 <nav>
-    <a href="">2013</a> |
-    <a href="?key=0AnGjdmqOroGfdHdQYzZBejVzVHlQemM0cGMyZDNIRmc">2012</a> |
-    <a href="?key=0AnGjdmqOroGfdGw0WGozLUZVQXRvWGJ5QjNGWW5OaEE">2011</a> |
+    <a href="?year=2013">2013</a> |
+    <a href="?year=2012">2012</a> |
+    <a href="?year=2011">2011</a> |
 </nav>
-<h1 id="participantNo"></h1>
+<h1> {{ participants }} participants </h1>
+</script>
 <div style="float: left;">
 <h2> Distributions <h2>
 <div id="distributions"></div>
@@ -52,13 +56,19 @@
 
 <script type="text/javascript">
   // Get URL from request
+  var sheet_urls = {
+    2013: "0AnGjdmqOroGfdHdQYzZBejVzVHlQemM0cGMyZDNIRmc",
+    2012: "0AnGjdmqOroGfdHdQYzZBejVzVHlQemM0cGMyZDNIRmc",
+    2011: "0AnGjdmqOroGfdGw0WGozLUZVQXRvWGJ5QjNGWW5OaEE"
+  }
   var query = window.location.search.substring(1);
   var vars = query.split('&');
   URL = "0AnGjdmqOroGfdHdQYzZBejVzVHlQemM0cGMyZDNIRmc"
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split('=');
-    if (decodeURIComponent(pair[0]) == "key") {
-      URL = pair[1]
+    if (decodeURIComponent(pair[0]) == "year") {
+      URL = sheet_urls[pair[1]]
+      YEAR = pair[1]
     }
   }
 </script>
@@ -71,7 +81,6 @@
   	
   function showInfo(data) {
 		gData = data;
-    $("#participantNo").html(gData.length + " participants");
     Sheetsee.makeTable(gData, "#participants");
     Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
 
@@ -87,6 +96,12 @@
     var barOptions = {labels: "helper", units: "units", m: [15, 120, 120, 200],
                       w: 800, h: 800, div: "#helpers", hiColor: "#14ECC8"};
     Sheetsee.d3BarChart(barData, barOptions);
+
+    var source = $("#lifTemplate").html();
+    var template = Handlebars.compile(source);
+    var context  = {year: YEAR, participants: gData.length};
+    var html     = template(context);
+    $("#lifHeader").html(html);
   }
 </script>
 
