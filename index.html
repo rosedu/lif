@@ -84,8 +84,8 @@
 
     var helpers = Sheetsee.getOccurance(data, "helper");
     var barData = Sheetsee.makeColorArrayOfObject(helpers, colors, "helper");
-    var barOptions = {labels: "helper", units: "units", m: [0, 0, 0, 200],
-                      w: 600, h: 800, div: "#helpers", hiColor: "#14ECC8"};
+    var barOptions = {labels: "helper", units: "units", m: [15, 120, 120, 200],
+                      w: 800, h: 800, div: "#helpers", hiColor: "#14ECC8"};
     Sheetsee.d3BarChart(barData, barOptions);
   }
 </script>
