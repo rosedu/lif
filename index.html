@@ -14,14 +14,23 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Merriweather:400,700' rel='stylesheet' />
 		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/style.css">
 		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/site.css">
+		<link rel="stylesheet" type="text/css" href="table.css">
 	</head>
 
   <style>
     body {
       padding: 0px;
       border: 0px;
-      margin: 0px;
       background-color: #e0e0e0;
+    }
+
+    #lifContent {
+      margin: auto;
+      width: 1000px;
+      min-height: 100%;
+      background-color: lightGrey;
+      box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .5);
+      border-radius: 5px;
     }
 
     ::selection {
@@ -44,7 +53,12 @@
     }
 
     .content {
-      padding: 10px 40px 10px 40px;
+      padding: 10px;
+      padding-top: 20px;
+    }
+
+    h2 {
+      font-size: 20px;
     }
 
     h1, h2, h3 {
@@ -55,7 +69,7 @@
 
     b.largeText {
       font-weight: bold;
-      font-size: 80px;
+      font-size: 45px;
       color: #CC3E61;
     }
 
@@ -63,39 +77,42 @@
       margin: 0px;
       border: 0px;
       padding: 10px;
-      padding-left: 40px;
       overflow: auto;
     }
 
     h1.header {
-      font-size: 50px;
-      padding-top: 40px;
-      padding-bottom: 40px;
+      height: 50px;
+      line-height: 40px;
+      font-size: 40px;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
 
     #logo {
       float: right;
-      width: 300px;
-      padding-right: 30px;
+      width: 250px;
       border: 0px;
     }
 
     #logo img {
-      width: 100%;
+      width: 80%;
     }
 
     nav.header {
-      font-size: 15px;
+      font-size: 12px;
       background-color: #1F2121;
       color: white;
-      box-shadow: 0 10px 10px -4px rgba(0, 0, 0, .5);
-      -moz-box-shadow: 0 10px 10px -4px rgba(0, 0, 0, .5);
-      -webkit-box-shadow: 0 10px 10px -4px rgba(0, 0, 0, .5);
+      border-radius: 5px;
+      box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .5);
+      background-image: linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
+      background-image: -o-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
+      background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
+      background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
+      background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
     }
 
     #partners {
-      padding-top: 40px;
-      padding-right: 40px;
+      padding-top: 110px;
       float: right;
       width: 250px;
     }
@@ -120,7 +137,7 @@
 
 
 <body>
-<div id=lifHeader></div>
+<div id=lifContent></div>
 <script id="lifTemplate" type="text/x-handlebars-template">
 <h1 class="header"> Linux Install Fest {{ year }}
 <a id="logo" href="http://rosedu.org"><img src="res/rosedu_logo.png" /></a></h1>
@@ -140,7 +157,7 @@
 <div>
 {{#if participants}}
 <div class="content">
-<h1> <b class="largeText">{{ participants }}</b> participants </h1>
+<h2> <b class="largeText">{{ participants }}</b> participants </h2>
 <div class="content">
 <div>
 <h2> Distributions </h2>
@@ -216,7 +233,7 @@
     var template = Handlebars.compile(source);
     var context  = {year: YEAR, participants: gData.length, partners: PARTNERS};
     var html     = template(context);
-    $("#lifHeader").html(html);
+    $("#lifContent").html(html);
 
     Sheetsee.makeTable(gData, "#participants");
     Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
