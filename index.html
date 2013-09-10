@@ -75,9 +75,13 @@
 
     #logo {
       float: right;
-      height: 63px;
       width: 300px;
       padding-right: 30px;
+      border: 0px;
+    }
+
+    #logo img {
+      width: 100%;
     }
 
     nav.header {
@@ -118,7 +122,8 @@
 <body>
 <div id=lifHeader></div>
 <script id="lifTemplate" type="text/x-handlebars-template">
-<h1 class="header"> Linux Install Fest {{ year }} <img id="logo" src="res/rosedu_logo.png"/></h1>
+<h1 class="header"> Linux Install Fest {{ year }}
+<a id="logo" href="http://rosedu.org"><img src="res/rosedu_logo.png" /></a></h1>
 <nav class="header">
     <a href="?year=2013">2013</a> |
     <a href="?year=2012">2012</a> |
