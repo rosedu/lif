@@ -1,19 +1,19 @@
 <html>
 	<head>
 		<title>Linux Install Fest</title>
-		<script type="text/javascript" src="sheetsee.js/js/ICanHaz.js"></script> 
+		<script type="text/javascript" src="sheetsee.js/js/ICanHaz.js"></script>
 		<script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js'></script>
 		<script src='sheetsee.js/js/jquery.js '></script>
 		<script type="text/javascript" src='sheetsee.js/js/d3.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/tabletop.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/sheetsee.js'></script>
 		<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js'></script>
-		
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.css' rel='stylesheet' />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Merriweather:400,700' rel='stylesheet' />
-		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/style.css"> 
-		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/site.css"> 
+		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/style.css">
+		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/site.css">
 	</head>
 
   <style>
@@ -90,7 +90,6 @@
     }
 
     #partners {
-      text-align: center;
       padding-top: 40px;
       padding-right: 40px;
       float: right;
@@ -103,7 +102,15 @@
 
     #partners img {
       padding: 10px;
-      width: 60%;
+    }
+
+    #partners .sponsor {
+      width: 70%;
+      padding: 15px;
+    }
+
+    #partners .support {
+      width: 40%;
     }
   </style>
 
@@ -121,7 +128,7 @@
 <div id="partners">
 <h2>Partners</h2>
 {{#each partners}}
-<a href={{this.url}}><img src={{this.src}} /></a>
+<a href={{this.url}}><img class={{this.type}} src={{this.src}} /></a>
 {{/each}}
 </div>
 {{/if}}
@@ -160,7 +167,7 @@
 </table>
 </div>
 </script>
-	
+
 <script type="text/javascript">
   // Get URL from request
   var sheet_urls = {
@@ -169,13 +176,13 @@
     2011: "0AnGjdmqOroGfdGw0WGozLUZVQXRvWGJ5QjNGWW5OaEE"
   }
   var partners = {
-    2012: [{ url: "http://www.crisoft.ro", src: "res/crisoft.png" },
-           { url: "http://acs.pub.ro", src: "res/cs.png" },
-           { url: "http://www.anis.ro", src: "res/anis.png" },
-           { url: "http://ubuntu.ro", src: "res/ubunturo.png" },
-           { url: "http://www.fedoraproject.ro", src: "res/fedora.png" },
-           { url: "http://www.suseromania.ro", src: "res/opensuse.png" },
-           ]
+    2012: [{ url: "http://www.crisoft.ro", src: "res/crisoft.png", type: "sponsor" },
+           { url: "http://www.anis.ro", src: "res/anis.png", type: "sponsor"},
+           { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
+           { url: "http://ubuntu.ro", src: "res/ubunturo.png", type: "support"},
+           { url: "http://www.fedoraproject.ro", src: "res/fedora.png", type: "support"},
+           { url: "http://www.suseromania.ro", src: "res/opensuse.png", type: "support"}
+           ],
   }
   var query = window.location.search.substring(1);
   var vars = query.split('&');
@@ -195,9 +202,9 @@
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
   	var gData
-		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } ) 
-	}) 
-  	
+		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
+	})
+
   function showInfo(data) {
 		gData = data;
     var source = $("#lifTemplate").html();
@@ -205,7 +212,7 @@
     var context  = {year: YEAR, participants: gData.length, partners: PARTNERS};
     var html     = template(context);
     $("#lifHeader").html(html);
- 
+
     Sheetsee.makeTable(gData, "#participants");
     Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
 
