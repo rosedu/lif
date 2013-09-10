@@ -174,7 +174,7 @@
     Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
 
     var distributions = Sheetsee.getOccurance(data, "distribution");
-    var colors = ["#CC3E61", "#88C62C", "#FEE900"]
+    var colors = ["#CC3E61", "#88C62C", "#138B43"]
     var pieData = Sheetsee.makeColorArrayOfObject(distributions, colors, "distribution");
     var pieOptions = {labels: "distribution", units: "units", m: [120, 120, 120, 120],
                       w: 600, h: 400, div: "#distributions", hiColor: "#14ECC8"};
