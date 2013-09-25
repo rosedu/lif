@@ -32,14 +32,12 @@
 {{# if participants}}
 <h2 class="content"> <b class="largeText">{{ participants }}</b> participants </h2>
 {{/if}}
-{{#if partners}}
 <div id="partners">
 <h2>Partners</h2>
 {{#each partners}}
 <a href={{this.url}}> <img class={{this.type}} src={{this.src}} /> </a>
 {{/each}}
 </div>
-{{/if}}
 {{#if participants}}
 <h2> Distributions </h2>
 <div id="distributions"></div>
@@ -51,9 +49,31 @@
 <span class="noMatches">no matches</span>
 <div id="participants"></div>
 {{else}}
-<b class="largeText"> To be announced </b>
-<h1> In the meantime visit our last editions </h1>
-<div style="height:500px"></div>
+<div class="description">
+<strong>ROSEdu</strong> pregătește cea de a 6-a ediție a <strong>Linux Install Fest</strong>.
+<div>
+Ai posibilitatea, alături de noi, să îți instalezi orice distribuție Linux pe laptopul sau computerul tău.
+Vom fi alături de tine pentru a rezolva problemele legate de drivere, partiționare sau migrarea datelor între sisteme de operare diferite.
+</div>
+<div>
+<strong>Linux Install Fest</strong> își propune să aducă împreună timp de câteva ore oameni pasionați din diverse comunități Linux.
+</div>
+<div class="note">
+*Dacă ai un sistem desktop îți poți aduce doar unitatea. Noi vom pune la dispoziție monitoare, tastaturi și mouse-uri.
+</div>
+<div>
+<strong>Când</strong>
+</div>
+<div class="time">
+Sâmbătă <strong> 5 Octombrie </strong> - Între <strong> 10:00 - 16:00 </strong>
+</div>
+<div class="date">
+</div>
+<div>
+<strong>Unde</strong>
+<div>
+<iframe src="http://mapsengine.google.com/map/u/0/embed?mid=zqB_EnNh9SCE.k33i_RSW1aUw" width="640" height="480"></iframe>
+</div>
 {{/if}}
 </div>
 </script>
@@ -126,7 +146,7 @@
     var colors = ["#CC3E61", "#88C62C", "#138B43"]
     var pieData = Sheetsee.makeColorArrayOfObject(distributions, colors, "distribution");
     var pieOptions = {labels: "distribution", units: "units", m: [120, 120, 120, 120],
-                      w: 600, h: 400, div: "#distributions", hiColor: "#14ECC8"};
+                      w: 600, h: 400, div: "#distributions", hiColor: "#e55b5b"};
     Sheetsee.d3PieChart(pieData, pieOptions);
 
     var helpers = Sheetsee.getOccurance(data, "helper");
@@ -136,6 +156,5 @@
     Sheetsee.d3BarChart(barData, barOptions);
  }
 </script>
-
 </body>
 </html>
