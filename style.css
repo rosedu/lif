@@ -19,18 +19,18 @@ body {
 }
 
 a {
-  border-color: #88C62C;
+  border-color: #CC3E61;
   color: white;
 }
 
 a:visited {
   color: white;
-  border-color: #88C62C;
+  border-color: #CC3E61;
 }
 
 a:hover {
+  border-color: #88C62C;
   color: white;
-  border-color: #CC3E61;
 }
 
 .content {
