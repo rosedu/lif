@@ -22,12 +22,19 @@
 <body>
 <div id=lifContent></div>
 <script id="lifTemplate" type="text/x-handlebars-template">
-<h1 class="header"> Linux Install Fest {{ year }}
-<a id="logo" href="http://rosedu.org"><img src="res/rosedu_logo.png" /></a></h1>
+  <h1 class="header">
+    {{# if logo}}
+      <img id="editionLogo" src={{logo}} />
+    {{else}}
+      <img id="editionLogo" src="res/2013.png" />
+    {{/if}}
+  Ediția {{ year }}
+  <a id="logo" href="http://rosedu.org"><img src="res/rosedu_logo.png" /></a></h1>
 <nav class="header">
-    <a href="?year=2013">2013</a> |
-    <a href="?year=2012">2012</a> |
-    <a href="?year=2011">2011</a> |
+    <span>ediții:</span>
+    <a href="?year=2013">2013</a>
+    <a href="?year=2012">2012</a>
+    <a href="?year=2011">2011</a>
 </nav>
 <div class="content">
 {{# if participants}}
@@ -98,6 +105,12 @@ Duminică, <strong> 13 Octombrie </strong> - Între <strong> 10:00 și 16:00 </s
     2012: "0AnGjdmqOroGfdHdQYzZBejVzVHlQemM0cGMyZDNIRmc",
     2011: "0AnGjdmqOroGfdGw0WGozLUZVQXRvWGJ5QjNGWW5OaEE"
   }
+
+  var logos = {
+    2013: "res/2013.png",
+    2012: "res/2012.png",
+  }
+
   var partners = {
     2013: [{ url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
            { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
@@ -121,12 +134,14 @@ Duminică, <strong> 13 Octombrie </strong> - Între <strong> 10:00 și 16:00 </s
   YEAR = 2013
   URL = sheet_urls[YEAR]
   PARTNERS = partners[YEAR]
+  LOGO = 0
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split('=');
     if (decodeURIComponent(pair[0]) == "year") {
       YEAR = pair[1]
       URL = sheet_urls[YEAR]
       PARTNERS = partners[YEAR]
+      LOGO = logos[YEAR]
     }
   }
 </script>
@@ -160,7 +175,8 @@ Duminică, <strong> 13 Octombrie </strong> - Între <strong> 10:00 și 16:00 </s
 		gData = data;
     var source = $("#lifTemplate").html();
     var template = Handlebars.compile(source);
-    var context  = {year: YEAR, participants: gData.length, partners: PARTNERS};
+    var context  = {year: YEAR, participants: gData.length, partners: PARTNERS,
+                    logo: LOGO};
     var html     = template(context);
     $("#lifContent").html(html);
 

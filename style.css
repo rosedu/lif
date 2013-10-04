@@ -1,7 +1,13 @@
 body {
   padding: 0px;
   border: 0px;
-  background-color: #e0e0e0;
+  background: url('res/bg.gif');
+}
+
+#editionLogo {
+  vertical-align: middle;
+  height: 100px;
+  width: 130px;
 }
 
 #lifContent {
@@ -9,9 +15,7 @@ body {
   margin-top: 3px;
   width: 1000px;
   min-height: 100%;
-  background-color: lightGrey;
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .5);
-  border-radius: 5px;
+  background-color: white;
 }
 
 ::selection {
@@ -19,17 +23,15 @@ body {
 }
 
 a {
-  border-color: #CC3E61;
   color: white;
+  border: 0px;
 }
 
 a:visited {
   color: white;
-  border-color: #CC3E61;
 }
 
 a:hover {
-  border-color: #88C62C;
   color: white;
 }
 
@@ -63,39 +65,49 @@ b.largeText {
 }
 
 h1.header {
-  height: 50px;
   line-height: 40px;
-  font-size: 40px;
+  font-size: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
+  padding-left: 10px;
 }
 
 #logo {
   float: right;
-  width: 250px;
-  border: 0px;
+  width: 230px;
+  padding-right: 10px;
 }
 
 #logo img {
-  width: 80%;
+  padding-top: 23px;
 }
 
 nav.header {
-  font-size: 12px;
+  font-size: 16px;
   background-color: #1F2121;
   color: white;
-  border-radius: 5px;
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .5);
-  background-image: linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
-  background-image: -o-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
-  background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
-  background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
-  background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(95,87,102) 52%);
+  overflow: hidden;
+}
+
+nav span {
+  padding-right: 20px;
+  padding-left: 10px;
+}
+
+nav a {
+  padding: 20px 20px 20px 20px;
+}
+
+nav a:hover {
+  background-color: #CC3E61;
 }
 
 #partners {
   float: right;
   width: 200px;
+  background-color: ligtgray;
+  border-radius: 3px;
+  padding: 10px;
 }
 
 #partners a {
