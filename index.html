@@ -54,9 +54,7 @@
 </div>
 {{#if participants}}
 <h2> Distributions </h2>
-<div>
-<canvas id="distributions"></canvas>
-</div>
+<canvas id="distributions" width="600" height="400"></canvas>
 <h2> Helpers </h2>
 <div id="helpers"></div>
 <h2> Participants <h2>
@@ -182,11 +180,12 @@ Duminică, <strong> 13 Octombrie </strong> - Între <strong> 10:00 și 16:00 </s
 
     //PieChart Stuff
     var pie = new RGraph.Pie('distributions', values);
-    pie.Set('chart.strokestyle', '#e8e8e8');
     pie.Set('chart.linewidth', 0);
     pie.Set('chart.variant', 'donut');
     pie.Set('chart.colors', colors);
     pie.Set('chart.zoom.factor', 1);
+    pie.Set('chart.text.size', 15);
+    pie.Set('chart.radius', 150);
     pie.Set('chart.labels', labels);
 
     RGraph.Effects.Pie.RoundRobin(pie, {frames:60});
