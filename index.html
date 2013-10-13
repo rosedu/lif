@@ -8,6 +8,11 @@
 		<script type="text/javascript" src='sheetsee.js/js/d3.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/tabletop.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/sheetsee.js'></script>
+		<script type="text/javascript" src='RGraph/libraries/RGraph.common.core.js'></script>
+		<script type="text/javascript" src='RGraph/libraries/RGraph.common.dynamic.js'></script>
+                <script type="text/javascript" src='RGraph/libraries/RGraph.common.tooltips.js'></script>
+                <script type="text/javascript" src='RGraph/libraries/RGraph.common.effects.js'></script>
+                <script type="text/javascript" src='RGraph/libraries/RGraph.pie.js'></script>
 		<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js'></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -49,7 +54,9 @@
 </div>
 {{#if participants}}
 <h2> Distributions </h2>
-<div id="distributions"></div>
+<div>
+<canvas id="distributions"></canvas>
+</div>
 <h2> Helpers </h2>
 <div id="helpers"></div>
 <h2> Participants <h2>
@@ -165,11 +172,24 @@ Duminică, <strong> 13 Octombrie </strong> - Între <strong> 10:00 și 16:00 </s
     Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
 
     var distributions = Sheetsee.getOccurance(data, "distribution");
-    var colors = ["#CC3E61", "#88C62C", "#138B43"]
+    var colors = ["#CC3E61", "#88C62C", "#138B43", "#CC3E61", "#88C62C"];
     var pieData = Sheetsee.makeColorArrayOfObject(distributions, colors, "distribution");
-    var pieOptions = {labels: "distribution", units: "units", m: [120, 120, 120, 120],
-                      w: 600, h: 400, div: "#distributions", hiColor: "#e55b5b"};
-    Sheetsee.d3PieChart(pieData, pieOptions);
+
+    var values = pieData.map(function(x) { return x.units; });
+    var labels = pieData.map(function(x) { if (x.distribution == '')
+                                                  return 'Pending - ' + x.units;
+                                            return x.distribution + ' - ' + x.units; });
+
+    //PieChart Stuff
+    var pie = new RGraph.Pie('distributions', values);
+    pie.Set('chart.strokestyle', '#e8e8e8');
+    pie.Set('chart.linewidth', 0);
+    pie.Set('chart.variant', 'donut');
+    pie.Set('chart.colors', colors);
+    pie.Set('chart.zoom.factor', 1);
+    pie.Set('chart.labels', labels);
+
+    RGraph.Effects.Pie.RoundRobin(pie, {frames:60});
 
     var helpers = Sheetsee.getOccurance(data, "helper");
     var barData = Sheetsee.makeColorArrayOfObject(helpers, colors, "helper");
