@@ -4,3 +4,4 @@ We are using [shetsee.js](http://github.com/jlord/sheetsee.js) to make the publi
 
 The basic idea is simple. Store the data in a Google spreadsheet, use sheetsee.js do have a nice display of statistics.
 
+**Note**: Use `git clone --recursive` to also clone the shetsee.js repo.
