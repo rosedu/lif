@@ -1,18 +1,17 @@
 <html>
 	<head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
 		<title>Linux Install Fest</title>
-		<script type="text/javascript" src="sheetsee.js/js/ICanHaz.js"></script>
 		<script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js'></script>
-		<script src='sheetsee.js/js/jquery.js '></script>
-		<script type="text/javascript" src='sheetsee.js/js/d3.js'></script>
-		<script type="text/javascript" src='sheetsee.js/js/tabletop.js'></script>
+		<script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+		<script type="text/javascript" src='tabletop.js/tabletop.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/sheetsee.js'></script>
 		<script type="text/javascript" src='RGraph/libraries/RGraph.common.core.js'></script>
 		<script type="text/javascript" src='RGraph/libraries/RGraph.common.dynamic.js'></script>
-                <script type="text/javascript" src='RGraph/libraries/RGraph.common.tooltips.js'></script>
-                <script type="text/javascript" src='RGraph/libraries/RGraph.common.effects.js'></script>
-                <script type="text/javascript" src='RGraph/libraries/RGraph.pie.js'></script>
+    <script type="text/javascript" src='RGraph/libraries/RGraph.common.tooltips.js'></script>
+    <script type="text/javascript" src='RGraph/libraries/RGraph.common.effects.js'></script>
+    <script type="text/javascript" src='RGraph/libraries/RGraph.pie.js'></script>
+    <script type="text/javascript" src='RGraph/libraries/RGraph.hbar.js'></script>
 		<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js'></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -36,7 +35,6 @@
   Ediția {{ year }}
   <a id="logo" href="http://rosedu.org"><img src="res/rosedu_logo.png" /></a></h1>
 <nav class="header">
-    <span>ediții:</span>
     <a href="?year=2014">2014</a>
     <a href="?year=2013">2013</a>
     <a href="?year=2012">2012</a>
@@ -51,17 +49,15 @@
 {{#each partners}}
 <a href={{this.url}}> <img class={{this.type}} src={{this.src}} /> </a>
 {{/each}}
-<!--<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Frosedu.org&amp;width=200&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:290px;" allowTransparency="true"></iframe>-->
+<iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Frosedu.org&amp;width=200&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:290px;" allowTransparency="true"></iframe>
 </div>
 {{#if participants}}
 <h2> Distributions </h2>
 <canvas id="distributions" width="600" height="400"></canvas>
 <h2> Helpers </h2>
-<div id="helpers"></div>
+<canvas id="helpers" width="1000" height="1000"></canvas>
 <h2> Participants <h2>
 <input id="participantsFilter" type="text" placeholder="Search.."></input>
-<span class="clear button">Clear</span>
-<span class="noMatches">no matches</span>
 <div id="participants"></div>
 {{else}}
 <div class="description">
@@ -94,12 +90,12 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 </div>
 </script>
 
-<script id="participants" type="text/html">
+<script id="participantsTemplate" type="text/x-handlebars-template">
 <table>
   <tr><th class="tHeader">Name</th><th class="tHeader">Distribution</th><th class="tHeader">Helper</th></tr>
-  {{#rows}}
-  <tr><td>{{name}}</td><td>{{distribution}}</td><td>{{helper}}</td></tr>
-  {{/rows}}
+  {{#each rows}}
+  <tr><td>{{this.name}}</td><td>{{this.distribution}}</td><td>{{this.helper}}</td></tr>
+  {{/each}}
 </table>
 </div>
 </script>
@@ -107,7 +103,7 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 <script type="text/javascript">
   // Get URL from request
   var sheet_urls = {
-    2014: "0AnGjdmqOroGfdFRJQjhsMUI2cnR2VjhqVVZSaV93d2c",
+    2014: "1jvi-V3dKKF_YYEOsR0T8V_9SBskRacyB-1GjKzYNHGA",
     2013: "0AnGjdmqOroGfdFRJQjhsMUI2cnR2VjhqVVZSaV93d2c",
     2012: "0AnGjdmqOroGfdHdQYzZBejVzVHlQemM0cGMyZDNIRmc",
     2011: "0AnGjdmqOroGfdGw0WGozLUZVQXRvWGJ5QjNGWW5OaEE"
@@ -159,47 +155,103 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
-  	var gData
-		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
-	})
+    Tabletop.init({key: URL,
+                   callback: showInfo,
+                   simpleSheet: true});
+    setInterval(
+      function() { Tabletop.init({key: URL,
+                                  callback: showInfo,
+                                  simpleSheet: true }); },
+      100000);
+	});
+
+  function getCounts(data, field, sort) {
+    occ = {};
+    for (var i = 0; i < data.length; i++) {
+      key = data[i][field];
+      count = occ[key];
+      occ[key] = count ? count + 1 : 1;
+    }
+
+    occ_arr = [];
+    for (key in occ) {
+      occ_arr.push({'label': key, 'value': occ[key]});
+    }
+
+    if (sort)
+      occ_arr.sort(function(a, b) { return b.value - a.value; });
+
+    res = {'values': [],
+           'labels': []};
+
+    for (var i = 0; i < occ_arr.length; i++) {
+      obj = occ_arr[i];
+      key = obj.label;
+      count = obj.value;
+      res.labels.push(obj.label ? key + ' - ' + count : 'Not Set - ' + count);
+      res.values.push(count);
+    }
+    return res;
+  }
+
+  function showParticipants(data, filter_key) {
+    var shown_data = data;
+    if (filter_key) {
+      shown_data = [];
+      for (var i = 0; i < data.length; i++) {
+        obj = data[i];
+        if (data[i].name.toLowerCase().contains(filter_key))
+          shown_data.push(obj);
+      }
+    }
+    var participants_src = $("#participantsTemplate").html();
+    var participants_template = Handlebars.compile(participants_src);
+    var part_context = {rows: shown_data};
+    var part_html = participants_template(part_context);
+    $("#participants").html(part_html);
+  }
 
   function showInfo(data) {
-		gData = data;
-    var source = $("#lifTemplate").html();
+		var gData    = data;
+    var source   = $("#lifTemplate").html();
     var template = Handlebars.compile(source);
-    var context  = {year: YEAR, participants: 0, partners: PARTNERS,
-                    logo: LOGO};
+    var context  = {year: YEAR, participants: gData.length, partners: PARTNERS,
+                   logo: LOGO};
     var html     = template(context);
+
+    // Perform the main layout
     $("#lifContent").html(html);
-    Sheetsee.makeTable(gData, "#participants");
-    Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
 
-    var distributions = Sheetsee.getOccurance(data, "distribution");
     var colors = ["#CC3E61", "#88C62C", "#138B43", "#CC3E61", "#88C62C"];
-    var pieData = Sheetsee.makeColorArrayOfObject(distributions, colors, "distribution");
-
-    var values = pieData.map(function(x) { return x.units; });
-    var labels = pieData.map(function(x) { if (x.distribution == '')
-                                                  return 'Pending - ' + x.units;
-                                            return x.distribution + ' - ' + x.units; });
+    var pieData = getCounts(gData, 'distribution', false);
 
     //PieChart Stuff
-    var pie = new RGraph.Pie('distributions', values);
+    var pie = new RGraph.Pie('distributions', pieData.values);
     pie.Set('chart.linewidth', 0);
     pie.Set('chart.variant', 'donut');
     pie.Set('chart.colors', colors);
     pie.Set('chart.zoom.factor', 1);
     pie.Set('chart.text.size', 15);
     pie.Set('chart.radius', 150);
-    pie.Set('chart.labels', labels);
+    pie.Set('chart.labels', pieData.labels);
+    pie.Draw();
 
-    RGraph.Effects.Pie.RoundRobin(pie, {frames:60});
 
-    var helpers = Sheetsee.getOccurance(data, "helper");
-    var barData = Sheetsee.makeColorArrayOfObject(helpers, colors, "helper");
-    var barOptions = {labels: "helper", units: "units", m: [15, 120, 0, 200],
-                      w: 800, h: 800, div: "#helpers", hiColor: "#14ECC8"};
-    Sheetsee.d3BarChart(barData, barOptions);
+    var hbarData = getCounts(gData, 'helper', true);
+    var hbar = new RGraph.HBar('helpers', hbarData.values);
+    hbar.Set('chart.labels', hbarData.labels);
+    hbar.Set('chart.gutter.left', 180);
+    hbar.Set('chart.background.grid', false);
+    hbar.Set('chart.colors', colors);
+    hbar.Set('chart.zoom.color', 1.0);
+    hbar.Draw();
+
+    showParticipants(gData, "");
+    $('#participantsFilter').on('input', function() {
+      text = $(this).val();
+      showParticipants(gData, text);
+    });
+
  }
 </script>
 </body>
