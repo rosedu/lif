@@ -11,6 +11,7 @@
     <script type="text/javascript" src='RGraph/libraries/RGraph.common.tooltips.js'></script>
     <script type="text/javascript" src='RGraph/libraries/RGraph.common.effects.js'></script>
     <script type="text/javascript" src='RGraph/libraries/RGraph.pie.js'></script>
+    <script type="text/javascript" src='RGraph/libraries/RGraph.hbar.js'></script>
 		<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js'></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -161,37 +162,50 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
 	})
 
+  function getCounts(data, field) {
+    occ = {};
+    for (var i = 0; i < data.length; i++) {
+      key = data[i][field];
+      count = occ[key];
+      occ[key] = count ? count + 1 : 1;
+    }
+
+    res = {'values': [],
+           'labels': []};
+    for (key in occ) {
+      count = occ[key];
+      res.labels.push(key ? key + ' - ' + count : 'Not Set - ' + count);
+      res.values.push(count);
+    }
+    return res;
+  }
+
   function showInfo(data) {
-		gData = data;
-    var source = $("#lifTemplate").html();
+		var gData    = data;
+    var source   = $("#lifTemplate").html();
     var template = Handlebars.compile(source);
-    var context  = {year: YEAR, participants: 0, partners: PARTNERS,
-                    logo: LOGO};
+    var context  = {year: YEAR, participants: gData.length, partners: PARTNERS,
+                   logo: LOGO};
     var html     = template(context);
+
+    // Perform the main layout
     $("#lifContent").html(html);
-    Sheetsee.makeTable(gData, "#participants");
-    Sheetsee.initiateTableFilter(gData, "#participantsFilter", "#participants");
 
-    var distributions = Sheetsee.getOccurance(data, "distribution");
     var colors = ["#CC3E61", "#88C62C", "#138B43", "#CC3E61", "#88C62C"];
-    var pieData = Sheetsee.makeColorArrayOfObject(distributions, colors, "distribution");
-
-    var values = pieData.map(function(x) { return x.units; });
-    var labels = pieData.map(function(x) { if (x.distribution == '')
-                                                  return 'Pending - ' + x.units;
-                                            return x.distribution + ' - ' + x.units; });
+    var pieData = getCounts(gData, 'distribution');
 
     //PieChart Stuff
-    var pie = new RGraph.Pie('distributions', values);
+    var pie = new RGraph.Pie('distributions', pieData.values);
     pie.Set('chart.linewidth', 0);
     pie.Set('chart.variant', 'donut');
     pie.Set('chart.colors', colors);
     pie.Set('chart.zoom.factor', 1);
     pie.Set('chart.text.size', 15);
     pie.Set('chart.radius', 150);
-    pie.Set('chart.labels', labels);
+    pie.Set('chart.labels', pieData.labels);
 
     RGraph.Effects.Pie.RoundRobin(pie, {frames:60});
+
 
     var helpers = Sheetsee.getOccurance(data, "helper");
     var barData = Sheetsee.makeColorArrayOfObject(helpers, colors, "helper");
