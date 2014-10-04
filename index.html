@@ -91,12 +91,12 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 </div>
 </script>
 
-<script id="participants" type="text/html">
+<script id="participantsTemplate" type="text/x-handlebars-template">
 <table>
   <tr><th class="tHeader">Name</th><th class="tHeader">Distribution</th><th class="tHeader">Helper</th></tr>
-  {{#rows}}
-  <tr><td>{{name}}</td><td>{{distribution}}</td><td>{{helper}}</td></tr>
-  {{/rows}}
+  {{#each rows}}
+  <tr><td>{{this.name}}</td><td>{{this.distribution}}</td><td>{{this.helper}}</td></tr>
+  {{/each}}
 </table>
 </div>
 </script>
@@ -156,9 +156,15 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
-  	var gData
-		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
-	})
+    Tabletop.init({key: URL,
+                   callback: showInfo,
+                   simpleSheet: true});
+    setInterval(
+      function() { Tabletop.init({key: URL,
+                                  callback: showInfo,
+                                  simpleSheet: true }); },
+      10000);
+	});
 
   function getCounts(data, field, sort) {
     occ = {};
@@ -187,6 +193,23 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
       res.values.push(count);
     }
     return res;
+  }
+
+  function showParticipants(data, filter_key) {
+    var shown_data = data;
+    if (filter_key) {
+      shown_data = [];
+      for (var i = 0; i < data.length; i++) {
+        obj = data[i];
+        if (data[i].name.toLowerCase().contains(filter_key))
+          shown_data.push(obj);
+      }
+    }
+    var participants_src = $("#participantsTemplate").html();
+    var participants_template = Handlebars.compile(participants_src);
+    var part_context = {rows: shown_data};
+    var part_html = participants_template(part_context);
+    $("#participants").html(part_html);
   }
 
   function showInfo(data) {
@@ -224,6 +247,11 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
     hbar.Set('chart.zoom.color', 1.0);
     hbar.Draw();
 
+    showParticipants(gData, "");
+    $('#participantsFilter').on('input', function() {
+      text = $(this).val();
+      showParticipants(gData, text);
+    });
 
  }
 </script>
