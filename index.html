@@ -56,11 +56,9 @@
 <h2> Distributions </h2>
 <canvas id="distributions" width="600" height="400"></canvas>
 <h2> Helpers </h2>
-<div id="helpers"></div>
+<canvas id="helpers" width="1000" height="1000"></canvas>
 <h2> Participants <h2>
 <input id="participantsFilter" type="text" placeholder="Search.."></input>
-<span class="clear button">Clear</span>
-<span class="noMatches">no matches</span>
 <div id="participants"></div>
 {{else}}
 <div class="description">
@@ -162,7 +160,7 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
 	})
 
-  function getCounts(data, field) {
+  function getCounts(data, field, sort) {
     occ = {};
     for (var i = 0; i < data.length; i++) {
       key = data[i][field];
@@ -170,11 +168,22 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
       occ[key] = count ? count + 1 : 1;
     }
 
+    occ_arr = [];
+    for (key in occ) {
+      occ_arr.push({'label': key, 'value': occ[key]});
+    }
+
+    if (sort)
+      occ_arr.sort(function(a, b) { return b.value - a.value; });
+
     res = {'values': [],
            'labels': []};
-    for (key in occ) {
-      count = occ[key];
-      res.labels.push(key ? key + ' - ' + count : 'Not Set - ' + count);
+
+    for (var i = 0; i < occ_arr.length; i++) {
+      obj = occ_arr[i];
+      key = obj.label;
+      count = obj.value;
+      res.labels.push(obj.label ? key + ' - ' + count : 'Not Set - ' + count);
       res.values.push(count);
     }
     return res;
@@ -192,7 +201,7 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
     $("#lifContent").html(html);
 
     var colors = ["#CC3E61", "#88C62C", "#138B43", "#CC3E61", "#88C62C"];
-    var pieData = getCounts(gData, 'distribution');
+    var pieData = getCounts(gData, 'distribution', false);
 
     //PieChart Stuff
     var pie = new RGraph.Pie('distributions', pieData.values);
@@ -203,15 +212,19 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
     pie.Set('chart.text.size', 15);
     pie.Set('chart.radius', 150);
     pie.Set('chart.labels', pieData.labels);
+    pie.Draw();
 
-    RGraph.Effects.Pie.RoundRobin(pie, {frames:60});
+
+    var hbarData = getCounts(gData, 'helper', true);
+    var hbar = new RGraph.HBar('helpers', hbarData.values);
+    hbar.Set('chart.labels', hbarData.labels);
+    hbar.Set('chart.gutter.left', 180);
+    hbar.Set('chart.background.grid', false);
+    hbar.Set('chart.colors', colors);
+    hbar.Set('chart.zoom.color', 1.0);
+    hbar.Draw();
 
 
-    var helpers = Sheetsee.getOccurance(data, "helper");
-    var barData = Sheetsee.makeColorArrayOfObject(helpers, colors, "helper");
-    var barOptions = {labels: "helper", units: "units", m: [15, 120, 0, 200],
-                      w: 800, h: 800, div: "#helpers", hiColor: "#14ECC8"};
-    Sheetsee.d3BarChart(barData, barOptions);
  }
 </script>
 </body>
