@@ -6,7 +6,7 @@
 		<script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js'></script>
 		<script src='sheetsee.js/js/jquery.js '></script>
 		<script type="text/javascript" src='sheetsee.js/js/d3.js'></script>
-		<script type="text/javascript" src='sheetsee.js/js/tabletop.js'></script>
+		<script type="text/javascript" src='tabletop/src/tabletop.js'></script>
 		<script type="text/javascript" src='sheetsee.js/js/sheetsee.js'></script>
 		<script type="text/javascript" src='RGraph/libraries/RGraph.common.core.js'></script>
 		<script type="text/javascript" src='RGraph/libraries/RGraph.common.dynamic.js'></script>
@@ -51,7 +51,7 @@
 {{#each partners}}
 <a href={{this.url}}> <img class={{this.type}} src={{this.src}} /> </a>
 {{/each}}
-<!--<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Frosedu.org&amp;width=200&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:290px;" allowTransparency="true"></iframe>-->
+<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Frosedu.org&amp;width=200&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:290px;" allowTransparency="true"></iframe>
 </div>
 {{#if participants}}
 <h2> Distributions </h2>
@@ -107,7 +107,7 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 <script type="text/javascript">
   // Get URL from request
   var sheet_urls = {
-    2014: "0AnGjdmqOroGfdFRJQjhsMUI2cnR2VjhqVVZSaV93d2c",
+    2014: "1jvi-V3dKKF_YYEOsR0T8V_9SBskRacyB-1GjKzYNHGA",
     2013: "0AnGjdmqOroGfdFRJQjhsMUI2cnR2VjhqVVZSaV93d2c",
     2012: "0AnGjdmqOroGfdHdQYzZBejVzVHlQemM0cGMyZDNIRmc",
     2011: "0AnGjdmqOroGfdGw0WGozLUZVQXRvWGJ5QjNGWW5OaEE"
@@ -167,7 +167,7 @@ Sâmbătă, <strong> 11 Octombrie </strong> - Între <strong> 10:00 și 16:00 </
 		gData = data;
     var source = $("#lifTemplate").html();
     var template = Handlebars.compile(source);
-    var context  = {year: YEAR, participants: 0, partners: PARTNERS,
+    var context  = {year: YEAR, participants: gData.length, partners: PARTNERS,
                     logo: LOGO};
     var html     = template(context);
     $("#lifContent").html(html);
