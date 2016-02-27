@@ -5,7 +5,6 @@
   <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js'></script>
   <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
   <script type="text/javascript" src='tabletop.js/tabletop.js'></script>
-  <script type="text/javascript" src='sheetsee.js/js/sheetsee.js'></script>
   <script type="text/javascript" src='RGraph/libraries/RGraph.common.core.js'></script>
   <script type="text/javascript" src='RGraph/libraries/RGraph.common.dynamic.js'></script>
   <script type="text/javascript" src='RGraph/libraries/RGraph.common.tooltips.js'></script>
@@ -17,8 +16,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.css' rel='stylesheet' />
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Merriweather:400,700' rel='stylesheet' />
-  <link rel="stylesheet" type="text/css" href="sheetsee.js/css/style.css">
-  <link rel="stylesheet" type="text/css" href="sheetsee.js/css/site.css">
   <link rel="stylesheet" type="text/css" href="table.css">
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -158,7 +155,7 @@
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split('=');
     if (decodeURIComponent(pair[0]) == "year") {
-      YEAR = pair[1]
+      YEAR = parseInt(pair[1]);
       URL = sheet_urls[YEAR]
       PARTNERS = partners[YEAR]
       LOGO = logos[YEAR]
