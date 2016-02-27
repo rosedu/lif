@@ -52,6 +52,10 @@
         {{#if participants}}
         <h2> Distributions </h2>
         <canvas id="distributions" width="600" height="400"></canvas>
+        {{# if facultyData}}
+        <h2> Faculty </h2>
+        <canvas id="faculty" width="600" height="400"></canvas>
+        {{/if}}
         <h2> Helpers </h2>
         <canvas id="helpers" width="1000" height="1000"></canvas>
         <h2> Participants <h2>
@@ -87,6 +91,9 @@
               </div>
               {{/if}}
             </div>
+            <footer>
+              This website is open sourced on GitHub. <a href="https://github.com/rosedu/lif" title="GitHub Repository">Feel free to contribute</a>
+            </footer>
           </script>
 
           <script id="participantsTemplate" type="text/x-handlebars-template">
@@ -179,6 +186,8 @@
     occ = {};
     for (var i = 0; i < data.length; i++) {
       key = data[i][field];
+      if(key === undefined) // if the field does not exist in the data set 
+        return false;
       count = occ[key];
       occ[key] = count ? count + 1 : 1;
     }
@@ -222,12 +231,18 @@
   }
 
   function showInfo(data) {
-    var gData    = data;
-    var source   = $("#lifTemplate").html();
+    var gData = data;
+    var facultyData = getCounts(gData, 'faculty', false); // fetch faculty chart data before rendering template because ar rendering it needs to know weather this data is available
+    var source = $("#lifTemplate").html();
     var template = Handlebars.compile(source);
-    var context  = {year: YEAR, participants: gData.length, partners: PARTNERS,
-     logo: LOGO};
-     var html     = template(context);
+    var context = {
+      year: YEAR, 
+      participants: gData.length, 
+      partners: PARTNERS,
+      logo: LOGO, 
+      facultyData: facultyData != false, // tells the template weather to show or not the faculty char section
+    };
+    var html = template(context);
 
     // Perform the main layout
     $("#lifContent").html(html);
@@ -246,6 +261,18 @@
     pie.Set('chart.labels', pieData.labels);
     pie.Draw();
 
+    if( facultyData ){
+      var faculty = new RGraph.Pie('faculty', facultyData.values);
+      faculty.Set('chart.linewidth', 0);
+      faculty.Set('chart.variant', 'donut');
+      faculty.Set('chart.colors', colors);
+      faculty.Set('chart.zoom.factor', 1);
+      faculty.Set('chart.text.size', 15);
+      faculty.Set('chart.radius', 150);
+      faculty.Set('chart.labels', facultyData.labels);
+      faculty.Draw();
+    }
+  
 
     var hbarData = getCounts(gData, 'helper', true);
     var hbar = new RGraph.HBar('helpers', hbarData.values);

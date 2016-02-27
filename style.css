@@ -25,16 +25,16 @@ body {
   background: #999999;
 }
 
-a {
+nav a {
   color: white;
   border: 0px;
 }
 
-a:visited {
+nav a:visited {
   color: white;
 }
 
-a:hover {
+nav a:hover {
   color: white;
 }
 
@@ -159,3 +159,12 @@ table {
 th {
   width: 40%;
 }
+
+footer {
+  padding: 15px;
+  margin: 20px;
+  border-top: 1px solid #dfdfdf;
+  font-size: 13px;
+  color: grey;
+}
+
