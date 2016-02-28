@@ -1,0 +1,28 @@
+{
+  "name": "lif",
+  "version": "1.0",
+  "homepage": "https://github.com/rosedu/lif",
+  "authors": [
+    "Alexandru Niculae <alex2august@gmail.com>"
+  ],
+  "description": "Linux Install Fest Statistics",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "Linux",
+    "Install",
+    "Fest",
+    "AC"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Chart.js": "~1.0.2"
+  }
+}
