@@ -1,108 +1,159 @@
 <html>
-	<head>
-    <meta charset="UTF-8">
-		<title>Linux Install Fest</title>
-		<script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js'></script>
-		<script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
-		<script type="text/javascript" src='tabletop.js/tabletop.js'></script>
-		<script type="text/javascript" src='sheetsee.js/js/sheetsee.js'></script>
-		<script type="text/javascript" src='RGraph/libraries/RGraph.common.core.js'></script>
-		<script type="text/javascript" src='RGraph/libraries/RGraph.common.dynamic.js'></script>
-    <script type="text/javascript" src='RGraph/libraries/RGraph.common.tooltips.js'></script>
-    <script type="text/javascript" src='RGraph/libraries/RGraph.common.effects.js'></script>
-    <script type="text/javascript" src='RGraph/libraries/RGraph.pie.js'></script>
-    <script type="text/javascript" src='RGraph/libraries/RGraph.hbar.js'></script>
-		<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js'></script>
+<head>
+  <meta charset="UTF-8">
+  <title>Linux Install Fest</title>
+  <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js'></script>
+  <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+  <script type="text/javascript" src='tabletop.js/tabletop.js'></script>
+ 
+  <script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js'></script>
+  <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.css' rel='stylesheet' />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Merriweather:400,700' rel='stylesheet' />
-		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/style.css">
-		<link rel="stylesheet" type="text/css" href="sheetsee.js/css/site.css">
-		<link rel="stylesheet" type="text/css" href="table.css">
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.css' rel='stylesheet' />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Merriweather:400,700' rel='stylesheet' />
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 
 <body>
-<div id=lifContent></div>
-<script id="lifTemplate" type="text/x-handlebars-template">
-  <h1 class="header">
-    {{# if logo}}
-      <img id="editionLogo" src={{logo}} />
-    {{else}}
-      <img id="editionLogo" src="res/2013.png" />
-    {{/if}}
-  Ediția {{ year }}
-  <a id="logo" href="http://rosedu.org"><img src="res/rosedu_logo.png" /></a></h1>
-<nav class="header">
-    <a href="?year=2015">2015</a>
-    <a href="?year=2014">2014</a>
-    <a href="?year=2013">2013</a>
-    <a href="?year=2012">2012</a>
-    <a href="?year=2011">2011</a>
-</nav>
-<div class="content">
-{{# if participants}}
-  <h2 class="content"> <b class="largeText">{{ participants }}</b> participants </h2>
-  {{/if}}
-  <div id="partners">
-  <h2>Partners</h2>
-  {{#each partners}}
-  <a href={{this.url}}> <img class={{this.type}} src={{this.src}} /> </a>
-  {{/each}}
-  <iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Frosedu.org&amp;width=200&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:290px;" allowTransparency="true"></iframe>
-  </div>
-  {{#if participants}}
-  <h2> Distributions </h2>
-  <canvas id="distributions" width="600" height="400"></canvas>
-  <h2> Helpers </h2>
-  <canvas id="helpers" width="1000" height="1000"></canvas>
-  <h2> Participants <h2>
-  <input id="participantsFilter" type="text" placeholder="Search.."></input>
-  <div id="participants"></div>
 
-{{else}}
-  <div class="description">
-    <strong>ROSEdu</strong> pregătește cea de a 10-a ediție a
-    <a href="https://www.facebook.com/events/569614456477589/"><strong>Linux Install Fest</strong></a>.
-  <div>
-  Ai posibilitatea, alături de noi, să îți instalezi orice distribuție Linux pe laptopul sau computerul tău.
-  Vom fi alături de tine pentru a rezolva problemele legate de drivere, partiționare sau migrarea datelor între sisteme de operare diferite.
-  </div>
-  <div>
-  <strong>Linux Install Fest</strong> își propune să aducă împreună timp de câteva ore oameni pasionați din diverse comunități Linux.
-  </div>
-  <div class="note">
-  *Dacă ai un sistem desktop îți poți aduce doar unitatea. Noi vom pune la dispoziție monitoare, tastaturi și mouse-uri.
-  </div>
-  <div>
-  <strong>Când</strong>
-  </div>
-  <div class="time">
-  Sâmbătă, <strong> 10 Octombrie </strong> - Între <strong> 10:00 și 16:00 </strong>.
-  </div>
-  <div class="date">
-  </div>
-  <div>
-  <strong>Unde</strong>
-  <div>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.7075686723388!2d26.0522087544486!3d44.43946460791785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b201c1c2998f79%3A0x1acb42f08800db7a!2sBiblioteca+Central%C4%83!5e0!3m2!1sen!2sro!4v1444164367417" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-  </div>
-{{/if}}
-</div>
-</script>
+  <div id="lifContent" class="container"></div>
 
-<script id="participantsTemplate" type="text/x-handlebars-template">
-<table>
-  <tr><th class="tHeader">Name</th><th class="tHeader">Distribution</th><th class="tHeader">Helper</th></tr>
-  {{#each rows}}
-  <tr><td>{{this.name}}</td><td>{{this.distribution}}</td><td>{{this.helper}}</td></tr>
-  {{/each}}
-</table>
-</div>
-</script>
+  <script id="lifTemplate" type="text/x-handlebars-template">
+    <!-- Header START -->
+    <h1 class="header row">
+      {{# if logo}}
+        <img id="editionLogo" src={{logo}} />
+      {{else}}
+        <img id="editionLogo" src="res/2013.png" />
+      {{/if}}
 
-<script type="text/javascript">
+      Ediția {{ year }}
+
+      <a id="logo" href="http://rosedu.org"><img src="res/rosedu_logo.png" /></a>
+    </h1>
+    <!-- Header END -->
+
+    <!-- NavBar START -->
+    <nav class="header row">
+      <a href="?year=2015">2015</a>
+      <a href="?year=2014">2014</a>
+      <a href="?year=2013">2013</a>
+      <a href="?year=2012">2012</a>
+      <a href="?year=2011">2011</a>
+    </nav>
+    <!-- NavBar END -->
+
+      <div class="content row">
+
+        {{# if participants}}
+          <div class="row">
+            <h2 class="content"> <b class="largeText">{{ participants }}</b> participants </h2>
+          </div>
+        {{/if}}
+
+        {{#if participants}}
+          <div class="col-sm-9">
+            <div class="col-sm-5">
+              <h2> Distributions </h2>
+              <canvas id="distributions" height="400"></canvas>
+            </div>
+
+            {{# if facultyData}}
+              <div class="col-sm-5">
+                <h2> Faculty </h2>
+                <canvas id="faculty" height="400"></canvas>
+              </div>
+            {{/if}}
+
+            <div class="col-sm-12">
+              <h2> Helpers </h2>
+              <canvas id="helpers" height="400"></canvas>
+            </div>
+
+            <div class="col-sm-12">
+              <h2> Participants <h2>
+              <input id="participantsFilter" type="text" placeholder="Search.."></input>
+              <div id="participants"></div>
+            </div>
+          </div>
+
+          <div id="partners" class="col-sm-3">
+                <h2>Partners</h2>
+                {{#each partners}}
+                <a href={{this.url}}> <img class={{this.type}} src={{this.src}} /> </a>
+                {{/each}}
+                <iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Frosedu.org&amp;width=200&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:290px;" allowTransparency="true"></iframe>
+              </div>
+
+        {{else}}
+            <div class="description col-sm-9">
+              <strong>ROSEdu</strong> pregătește cea de a 10-a ediție a
+              <a href="https://www.facebook.com/events/569614456477589/"><strong>Linux Install Fest</strong></a>.
+              <div>
+                Ai posibilitatea, alături de noi, să îți instalezi orice distribuție Linux pe laptopul sau computerul tău.
+                Vom fi alături de tine pentru a rezolva problemele legate de drivere, partiționare sau migrarea datelor între sisteme de operare diferite.
+              </div>
+              <div>
+                <strong>Linux Install Fest</strong> își propune să aducă împreună timp de câteva ore oameni pasionați din diverse comunități Linux.
+              </div>
+              <div class="note">
+                *Dacă ai un sistem desktop îți poți aduce doar unitatea. Noi vom pune la dispoziție monitoare, tastaturi și mouse-uri.
+              </div>
+              <div>
+                <strong>Când</strong>
+              </div>
+              <div class="time">
+                Sâmbătă, <strong> 10 Octombrie </strong> - Între <strong> 10:00 și 16:00 </strong>.
+              </div>
+              <div class="date">
+              </div>
+              <div>
+                <strong>Unde</strong>
+                <div>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.7075686723388!2d26.0522087544486!3d44.43946460791785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b201c1c2998f79%3A0x1acb42f08800db7a!2sBiblioteca+Central%C4%83!5e0!3m2!1sen!2sro!4v1444164367417" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+                </div>
+                </div>
+
+
+                <div id="partners" class="col-sm-3">
+                  <h2>Partners</h2>
+                  {{#each partners}}
+                  <a href={{this.url}}> <img class={{this.type}} src={{this.src}} /> </a>
+                  {{/each}}
+                  <iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Frosedu.org&amp;width=200&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:290px;" allowTransparency="true"></iframe>
+                </div>
+
+        {{/if}}
+
+            </div>
+
+
+
+            <footer>
+              This website is open sourced on GitHub. <a href="https://github.com/rosedu/lif" title="GitHub Repository">Feel free to contribute</a>
+            </footer>
+
+          </script>
+
+          <script id="participantsTemplate" type="text/x-handlebars-template">
+            <table class="table table-boxed table-hover">
+              <tr><th class="tHeader">Name</th><th class="tHeader">Distribution</th><th class="tHeader">Helper</th></tr>
+              <tbody>
+              {{#each rows}}
+              <tr><td>{{this.name}}</td><td>{{this.distribution}}</td><td>{{this.helper}}</td></tr>
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </script>
+
+
+
+        <script type="text/javascript">
   // Get URL from request
   var sheet_urls = {
     2015: "1RA8VPzhFoJyVDF9TCV-mtH8Ocq98Wmo05CQICapL9e4",
@@ -121,32 +172,32 @@
 
   var partners = {
     2015: [
-      { url: "http://www.eaudeweb.ro/", src: "res/edw.png", type: "sponsor"},
-      { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
-      { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"}
+    { url: "http://www.eaudeweb.ro/", src: "res/edw.png", type: "sponsor"},
+    { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
+    { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"}
     ],
     2014: [
-      { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
-      { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"}
+    { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
+    { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"}
     ],
     2013: [
-      { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
-      { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
-      { url: "http://ubuntu.ro", src: "res/ubunturo.png", type: "support"},
-      { url: "http://www.archlinux.ro", src: "res/arch.png", type: "support"},
-      { url: "http://www.suseromania.ro", src: "res/opensuse.png", type: "support"}
+    { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
+    { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
+    { url: "http://ubuntu.ro", src: "res/ubunturo.png", type: "support"},
+    { url: "http://www.archlinux.ro", src: "res/arch.png", type: "support"},
+    { url: "http://www.suseromania.ro", src: "res/opensuse.png", type: "support"}
     ],
     2012: [
-      { url: "http://www.crisoft.ro", src: "res/crisoft.png", type: "sponsor" },
-      { url: "http://www.anis.ro", src: "res/anis.png", type: "sponsor"},
-      { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
-      { url: "http://ubuntu.ro", src: "res/ubunturo.png", type: "support"},
-      { url: "http://www.fedoraproject.ro", src: "res/fedora.png", type: "support"},
-      { url: "http://www.suseromania.ro", src: "res/opensuse.png", type: "support"}
+    { url: "http://www.crisoft.ro", src: "res/crisoft.png", type: "sponsor" },
+    { url: "http://www.anis.ro", src: "res/anis.png", type: "sponsor"},
+    { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
+    { url: "http://ubuntu.ro", src: "res/ubunturo.png", type: "support"},
+    { url: "http://www.fedoraproject.ro", src: "res/fedora.png", type: "support"},
+    { url: "http://www.suseromania.ro", src: "res/opensuse.png", type: "support"}
     ],
     2011: [
-      { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
-      { url: "http://ubuntu.ro", src: "res/ubunturo.png", type: "support"},
+    { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
+    { url: "http://ubuntu.ro", src: "res/ubunturo.png", type: "support"},
     ]
   }
   var query = window.location.search.substring(1);
@@ -158,7 +209,7 @@
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split('=');
     if (decodeURIComponent(pair[0]) == "year") {
-      YEAR = pair[1]
+      YEAR = parseInt(pair[1]);
       URL = sheet_urls[YEAR]
       PARTNERS = partners[YEAR]
       LOGO = logos[YEAR]
@@ -169,19 +220,21 @@
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
     Tabletop.init({key: URL,
-                   callback: showInfo,
-                   simpleSheet: true});
+     callback: showInfo,
+     simpleSheet: true});
     setInterval(
       function() { Tabletop.init({key: URL,
-                                  callback: showInfo,
-                                  simpleSheet: true }); },
+        callback: showInfo,
+        simpleSheet: true }); },
       100000);
-	});
+  });
 
   function getCounts(data, field, sort) {
     occ = {};
     for (var i = 0; i < data.length; i++) {
       key = data[i][field];
+      if(key === undefined) // if the field does not exist in the data set 
+        return false;
       count = occ[key];
       occ[key] = count ? count + 1 : 1;
     }
@@ -195,7 +248,7 @@
       occ_arr.sort(function(a, b) { return b.value - a.value; });
 
     res = {'values': [],
-           'labels': []};
+    'labels': []};
 
     for (var i = 0; i < occ_arr.length; i++) {
       obj = occ_arr[i];
@@ -213,7 +266,7 @@
       shown_data = [];
       for (var i = 0; i < data.length; i++) {
         obj = data[i];
-        if (data[i].name.toLowerCase().contains(filter_key))
+        if (data[i].name.toLowerCase().indexOf(filter_key.toLowerCase()) > -1)
           shown_data.push(obj);
       }
     }
@@ -225,39 +278,107 @@
   }
 
   function showInfo(data) {
-		var gData    = data;
-    var source   = $("#lifTemplate").html();
+    var gData = data;
+    var facultyData = getCounts(gData, 'faculty', false); // fetch faculty chart data before rendering template because ar rendering it needs to know weather this data is available
+    var source = $("#lifTemplate").html();
     var template = Handlebars.compile(source);
-    var context  = {year: YEAR, participants: gData.length, partners: PARTNERS,
-                   logo: LOGO};
-    var html     = template(context);
+    var context = {
+      year: YEAR, 
+      participants: gData.length, 
+      partners: PARTNERS,
+      logo: LOGO, 
+      facultyData: facultyData != false, // tells the template weather to show or not the faculty char section
+    };
+    var html = template(context);
 
     // Perform the main layout
     $("#lifContent").html(html);
 
-    var colors = ["#CC3E61", "#88C62C", "#138B43", "#CC3E61", "#88C62C"];
+
+    var ColorPool = {
+      idx: 0,
+      pool: [
+        {
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+        },
+        {
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+        },
+        {
+          color: "#FDB45C",
+          highlight: "#FFC870",
+        },
+      ],
+      next: function(){
+        if(this.idx >= this.pool.length){
+          this.idx = 1;
+          return 0;
+        }
+        else 
+          return this.idx++;
+      },
+      giveMeColors: function(){
+        return this.pool[this.next()];
+      },
+    }
+
+
+      var FoarmatData = {
+        Bars: function(data){
+          return {
+            labels: data.labels.map(function(elem){return elem.split("-")[0];}),
+            datasets: [{
+              label: 'People Helped',
+              fillColor: "rgba(151,187,205,0.5)",
+              strokeColor: "rgba(151,187,205,0.8)",
+              highlightFill: "rgba(151,187,205,0.75)",
+              highlightStroke: "rgba(151,187,205,1)",
+              data: data.values,
+            }],
+          };
+        },
+
+        Pie: function(data){
+          var formated_data = [];
+          data.labels.forEach(function(label, idx){
+            var colors = ColorPool.giveMeColors();
+            formated_data.push({
+              label: label.split('-')[0],
+              value: data.values[idx],
+              color: colors.color,
+              highlight: colors.highlight,
+            })
+          });
+          return formated_data;
+        }
+
+      };
+
+    //document.getElementById('js-legend').innerHTML = myNewChart.generateLegend();  
+
     var pieData = getCounts(gData, 'distribution', false);
+    var distributionsData = FoarmatData.Pie(pieData);
+    var ctx = document.getElementById("distributions").getContext("2d");
+    new Chart(ctx).Pie(distributionsData);
 
-    //PieChart Stuff
-    var pie = new RGraph.Pie('distributions', pieData.values);
-    pie.Set('chart.linewidth', 0);
-    pie.Set('chart.variant', 'donut');
-    pie.Set('chart.colors', colors);
-    pie.Set('chart.zoom.factor', 1);
-    pie.Set('chart.text.size', 15);
-    pie.Set('chart.radius', 150);
-    pie.Set('chart.labels', pieData.labels);
-    pie.Draw();
-
+    if( facultyData ){
+      var facultyData = FoarmatData.Pie(facultyData);
+      var ctx = document.getElementById("faculty").getContext("2d");
+      new Chart(ctx).Pie(facultyData)
+    }
 
     var hbarData = getCounts(gData, 'helper', true);
-    var hbar = new RGraph.HBar('helpers', hbarData.values);
-    hbar.Set('chart.labels', hbarData.labels);
-    hbar.Set('chart.gutter.left', 180);
-    hbar.Set('chart.background.grid', false);
-    hbar.Set('chart.colors', colors);
-    hbar.Set('chart.zoom.color', 1.0);
-    hbar.Draw();
+    var helpersData = FoarmatData.Bars(hbarData);
+    var ctx = document.getElementById("helpers").getContext("2d");
+    new Chart(ctx).Bar(helpersData, {
+      barValueSpacing : 1,
+      barDatasetSpacing : 1,
+      barShowStroke : false,
+    });
+
+    
 
     showParticipants(gData, "");
     $('#participantsFilter').on('input', function() {
@@ -265,7 +386,7 @@
       showParticipants(gData, text);
     });
 
- }
+  }
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 body {
   padding: 0px;
   border: 0px;
-  background: url('res/bg.gif');
+  background: #dfdfdf;
 }
 
 #editionLogo {
@@ -12,10 +12,10 @@ body {
 
 #lifContent {
   margin: auto;
-  margin-top: 3px;
-  width: 85%;
+  margin-top: 20px;
   min-height: 100%;
   background-color: white;
+  margin-top: 20px;
 }
 
 #distributionContainer {
@@ -25,16 +25,16 @@ body {
   background: #999999;
 }
 
-a {
+nav a {
   color: white;
   border: 0px;
 }
 
-a:visited {
+nav a:visited {
   color: white;
 }
 
-a:hover {
+nav a:hover {
   color: white;
 }
 
@@ -110,8 +110,9 @@ nav a:hover {
 }
 
 #partners {
-  float: right;
-  width: 200px;
+  /*float: right;*/
+  overflow: auto;
+
   background-color: ligtgray;
   border-radius: 3px;
   padding: 10px;
@@ -135,7 +136,7 @@ nav a:hover {
 }
 
 .description {
-  width: 640px;
+
   margin: auto;
 }
 
@@ -158,4 +159,21 @@ table {
 
 th {
   width: 40%;
+}
+
+footer {
+  padding: 15px;
+  margin: 20px;
+  border-top: 1px solid #dfdfdf;
+  font-size: 13px;
+  color: grey;
+}
+input#participantsFilter {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+canvas {
+  width: 100%;
 }
