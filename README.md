@@ -2,7 +2,7 @@
 ===
 We are using [shetsee.js](http://github.com/jlord/sheetsee.js) to make the public site display stats for every LIF for which we had tables.
 
-The basic idea is simple. Store the data in a Google spreadsheet, use sheetsee.js do have a nice display of statistics.
+The basic idea is simple. Store the data in a Google spreadsheet, use sheetsee.js to have a nice display of statistics.
 
 **Note**: Use `git clone --recursive` to also clone the shetsee.js repo.
 
