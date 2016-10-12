@@ -38,6 +38,7 @@
 
     <!-- NavBar START -->
     <nav class="header row">
+      <a href="?year=2016">2016</a>
       <a href="?year=2015">2015</a>
       <a href="?year=2014">2014</a>
       <a href="?year=2013">2013</a>
@@ -90,8 +91,8 @@
 
         {{else}}
             <div class="description col-sm-9">
-              <strong>ROSEdu</strong> pregătește cea de a 10-a ediție a
-              <a href="https://www.facebook.com/events/569614456477589/"><strong>Linux Install Fest</strong></a>.
+              <strong>ROSEdu</strong> pregătește cea de a 11-a ediție a
+              <a href="https://www.facebook.com/events/622521344597014/"><strong>Linux Install Fest</strong></a>.
               <div>
                 Ai posibilitatea, alături de noi, să îți instalezi orice distribuție Linux pe laptopul sau computerul tău.
                 Vom fi alături de tine pentru a rezolva problemele legate de drivere, partiționare sau migrarea datelor între sisteme de operare diferite.
@@ -106,14 +107,14 @@
                 <strong>Când</strong>
               </div>
               <div class="time">
-                Sâmbătă, <strong> 10 Octombrie </strong> - Între <strong> 10:00 și 16:00 </strong>.
+                Sâmbătă, <strong> 15 Octombrie </strong> - Între <strong> 10:00 și 16:00 </strong>.
               </div>
               <div class="date">
               </div>
               <div>
                 <strong>Unde</strong>
                 <div>
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.7075686723388!2d26.0522087544486!3d44.43946460791785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b201c1c2998f79%3A0x1acb42f08800db7a!2sBiblioteca+Central%C4%83!5e0!3m2!1sen!2sro!4v1444164367417" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.874500050395!2d26.04556341503424!3d44.43573650949483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b201ebafcdf7a3%3A0xeafb513bd76c5277!2sFacultatea+de+Automatic%C4%83+%C8%99i+Calculatoare!5e0!3m2!1sen!2sro!4v1476197569903" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
                 </div>
                 </div>
@@ -156,6 +157,7 @@
         <script type="text/javascript">
   // Get URL from request
   var sheet_urls = {
+    2016: "19VmXZipGCQv2QCcKVi-JfyRtBWvRUK-jIRFnSNKV9dw",
     2015: "1RA8VPzhFoJyVDF9TCV-mtH8Ocq98Wmo05CQICapL9e4",
     2014: "1jvi-V3dKKF_YYEOsR0T8V_9SBskRacyB-1GjKzYNHGA",
     2013: "0AnGjdmqOroGfdFRJQjhsMUI2cnR2VjhqVVZSaV93d2c",
@@ -164,6 +166,7 @@
   }
 
   var logos = {
+    2016: "res/2013.png",
     2015: "res/2013.png",
     2014: "res/2013.png",
     2013: "res/2013.png",
@@ -171,6 +174,10 @@
   }
 
   var partners = {
+    2016: [
+    { url: "http://acs.pub.ro", src: "res/cs.png", type: "sponsor"},
+    { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"}
+    ],
     2015: [
     { url: "http://www.eaudeweb.ro/", src: "res/edw.png", type: "sponsor"},
     { url: "http://www.ixiacom.com", src: "res/ixia.png", type: "sponsor"},
@@ -202,7 +209,7 @@
   }
   var query = window.location.search.substring(1);
   var vars = query.split('&');
-  YEAR = 2015
+  YEAR = 2016
   URL = sheet_urls[YEAR]
   PARTNERS = partners[YEAR]
   LOGO = 0
